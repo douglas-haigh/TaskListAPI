@@ -9,7 +9,6 @@ import java.util.List;
 @RestController()
 public class TaskController {
     TaskRepository taskRepository;
-
     @Autowired
     public TaskController(final TaskRepository taskRepository) {
         this.taskRepository = taskRepository;

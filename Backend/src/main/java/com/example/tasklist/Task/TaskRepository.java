@@ -19,7 +19,7 @@ public class TaskRepository {
     }
 
     public List<Task> getTasks() {
-        return tasks;
+        return this.tasks;
     }
 
     public void addTask(Task task) {
