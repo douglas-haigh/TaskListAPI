@@ -1,11 +1,17 @@
 export enum Priority {
-    HIGH = 2,
-    MEDIUM = 1,
-    LOW = 0,
+    HIGH = "HIGH",
+    MEDIUM = "MEDIUM",
+    LOW = "LOW",
+}
+
+export enum Status {
+    NOT_STARTED = "NOT_STARTED",
+    IN_PROGRESS = "IN_PROGRESS" ,
+    COMPLETED = "COMPLETED",
 }
 
 export interface TaskItem {
-    content: String;
+    content: string;
     priority: Priority;
-    done: boolean
+    status: Status;
 }

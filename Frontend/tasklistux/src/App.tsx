@@ -1,39 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import { AddTaskButton } from './Components/AddTaskButton';
 import { Task } from './Components/Task';
 import {Priority, TaskItem }  from './Types'
+
 
 function App() {
 
   const [loading, setLoading] = useState(false);
-  const [tasks, setTasks] = useState<TaskItem[] | undefined>()
+  const [tasks, setTasks] = useState< TaskItem[]>([])
 
-  const task1: TaskItem = {
-  content: "do washing", 
-  priority: Priority.HIGH,
-  done: false
-  }
+  const handleTaskAdd = (task: TaskItem) => {
+    setTasks((tasks) => {
+    const updatedTasks = [...tasks, task];
+    return updatedTasks;
+  })}
 
   useEffect(() => {
       fetch("/api/tasks", {method: "GET"})
         .then((response) => {
           console.log(response.status)
-          console.log(response.text())
           return response.json();
         })
         .then((JSONResponse: TaskItem[]) => {
-          console.log(JSONResponse)
           setTasks(JSONResponse)
         })
         .catch((e) => {console.error(e)})
         .finally(() => setLoading(false));
     },[]);
 
-  return (
 
+  return (
     <div>
-      <Task task={task1}/>
-      {tasks && <Task task={tasks[0]} />}
+      <div className='TaskList'>
+      { tasks?.map((task) => {
+          return ( <Task task={task} />)
+      })}
+      <AddTaskButton onAdd={handleTaskAdd}/>
+      </div>
    </div>
   );
 }
