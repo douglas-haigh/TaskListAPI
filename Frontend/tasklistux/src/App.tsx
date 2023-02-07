@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { AddTaskButton } from './Components/AddTaskButton';
+import { CompleteTaskButton } from './Components/CompleteTaskButton';
 import { Task } from './Components/Task';
 import {Priority, TaskItem }  from './Types'
-
 
 function App() {
 
@@ -15,6 +15,12 @@ function App() {
     const updatedTasks = [...tasks, task];
     return updatedTasks;
   })}
+
+  const handleTaskComplete = (task: TaskItem) => {
+    console.log("task completed")
+    const updatedTasks = tasks.filter((t) => t.id !== task.id)
+    setTasks(updatedTasks);
+  }
 
   useEffect(() => {
       fetch("/api/tasks", {method: "GET"})
@@ -34,9 +40,10 @@ function App() {
     <div>
       <div className='TaskList'>
       { tasks?.map((task) => {
-          return ( <Task task={task} />)
+          return ( <Task task={task} onComplete={handleTaskComplete} />)
       })}
       <AddTaskButton onAdd={handleTaskAdd}/>
+      
       </div>
    </div>
   );

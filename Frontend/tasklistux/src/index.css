@@ -34,10 +34,22 @@ body {
   color: var(--secondary);
   border-style: solid;
   border-radius: 5%;
-  padding: 2%;
   margin: 2%;
+  padding: 4%;
   font-weight: bolder;
   text-align: center;
+}
+
+#AddTaskButton input {
+  background-color: var(--primary);
+  border-color: var(--secondary);
+  border-style: solid;
+}
+
+#AddTaskButton button {
+  background-color: var(--primary);
+  border-color: var(--secondary);
+  color: var(--secondary);
 }
 
 code {

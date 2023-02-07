@@ -14,7 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class TaskListApplication implements CommandLineRunner {
 
-    private static final Logger log = LoggerFactory.getLogger(TaskListApplication.class);
+
     private final TaskRepository taskRepository;
 
     @Autowired
@@ -27,17 +27,21 @@ public class TaskListApplication implements CommandLineRunner {
     }
     @Override
     public void run(String... args) throws Exception {
-        log.info("deleting previous data");
-        taskRepository.deleteAll();
-        log.info("inserting data");
-        taskRepository.save(new Task("Do Washing", Priority.MEDIUM, Status.NOT_STARTED));
-        taskRepository.save(new Task("Feed Cats", Priority.HIGH, Status.NOT_STARTED));
-        taskRepository.save(new Task("Book tickets", Priority.LOW, Status.COMPLETED));
+//        log.info("deleting previous data");
+//        taskRepository.deleteAll();
+//        log.info("inserting data");
+//        Task task = new Task("Do Washing", Priority.MEDIUM, Status.NOT_STARTED);
+//        taskRepository.save(task);
+//        Task task2 = new Task("clean stuff", Priority.MEDIUM, Status.IN_PROGRESS);
+//        taskRepository.save(task2);
+//        log.info(task.getId().toString());
+//        log.info(task2.getId().toString());
+//        taskRepository.save(new Task("Feed Cats", Priority.HIGH, Status.NOT_STARTED));
+//        taskRepository.save(new Task("Book tickets", Priority.LOW, Status.COMPLETED));
 
-        log.info("Tasks found with findAll():");
-        log.info("-------------------------------");
-        for (Task task : taskRepository.findAll()) {
-            log.info(task.toString());
-        }
+//        log.info("Tasks found with findAll():");
+//        log.info("-------------------------------");
+//        for (Task task : taskRepository.findAll()) {
+//            log.info(task.toString());
     }
 }

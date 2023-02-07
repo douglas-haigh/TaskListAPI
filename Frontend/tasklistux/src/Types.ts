@@ -11,6 +11,7 @@ export enum Status {
 }
 
 export interface TaskItem {
+    id: number | undefined;
     content: string;
     priority: Priority;
     status: Status;
