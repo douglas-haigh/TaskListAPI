@@ -16,7 +16,6 @@ export const AddTaskButton: React.FC<Props> = ({onAdd}) => {
             handleAdd();
         }
     }
-
     const handleAdd = () => {
         
         const task: TaskItem = {
@@ -51,7 +50,7 @@ export const AddTaskButton: React.FC<Props> = ({onAdd}) => {
         })
     }
 
-    const handleContentChange = (e: ChangeEvent<HTMLInputElement>) => { 
+    const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => { 
         setContent(e.target.value);
     }
     const clearInput = () => {
@@ -64,8 +63,8 @@ export const AddTaskButton: React.FC<Props> = ({onAdd}) => {
 
     return( 
         <div id="AddTaskButton">
-            <p> New task: </p>
-            <input value={content} id="content-input" name="content" onChange={handleContentChange} onKeyDown={handleKeyDown}/> 
+            <h3><u> Add a task: </u></h3>
+            <textarea value={content} id="content-input" name="content" onChange={handleContentChange} onKeyDown={handleKeyDown} rows={3}/>
             <button onClick={handleAdd} > + </button>
         </div>
     ) 

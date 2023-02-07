@@ -1,16 +1,28 @@
 :root {
   --primary: rgb(239, 212, 249);
   --secondary: rgb(187, 0, 254);
+  --border_thickness: 3px;
 }
+
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    sans-serif; */
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--primary);
+}
+
+h3 { 
+  text-decoration: underline;
+  word-wrap: break-word;
+}
+
+textarea {
+  word-wrap: break-word;
 }
 
 .TaskList { 
@@ -24,13 +36,14 @@ body {
   color: var(--secondary);
   border-style: solid;
   border-radius: 5%;
-  padding: 2%;
   margin: 2%;
   font-weight: bolder;
   text-align: center;
 }
 
 #AddTaskButton { 
+  display: flex;
+  flex-direction: column;
   color: var(--secondary);
   border-style: solid;
   border-radius: 5%;
@@ -38,18 +51,31 @@ body {
   padding: 4%;
   font-weight: bolder;
   text-align: center;
+  align-items: center;
 }
 
-#AddTaskButton input {
+#AddTaskButton textarea {
   background-color: var(--primary);
   border-color: var(--secondary);
   border-style: solid;
+  border-width: var(--border_thickness);
+  border-radius: 5%;
+  margin: 3%;
+  width: 80%;
 }
 
 #AddTaskButton button {
   background-color: var(--primary);
   border-color: var(--secondary);
   color: var(--secondary);
+}
+
+#CompleteTaskButton button {
+  background-color: var(--primary);
+  border-color: var(--secondary);
+  color: var(--secondary);
+  font-weight: bold;
+  margin-bottom: 3%;
 }
 
 code {

@@ -26,9 +26,8 @@ export const CompleteTaskButton: React.FC<Props> = ({task, onComplete}) => {
 
 
     return( 
-        <div id="AddTaskButton">
-            <p> Complete Task </p>
-            <button onClick={handleComplete}> : ) </button>
+        <div id="CompleteTaskButton">
+            <button onClick={handleComplete}> Done </button>
         </div>
     ) 
 }

@@ -10,10 +10,10 @@ export const Task: React.FC<Props> = ({task, onComplete}) => {
    
     return (
         <div className="Task"> 
-            <p> {task.content} </p>
-            <p> Priority: {task.priority} </p>
-            <p> Status: {task.status} </p>
-            <CompleteTaskButton task={task} onComplete={onComplete} />
+            <h3><u>{task.content} </u></h3>
+            <h5> Priority: {task.priority} </h5>
+            <h5> Status: {task.status} </h5>
+            < CompleteTaskButton task={task} onComplete={onComplete} />
         </div>
     )
 }
