@@ -14,7 +14,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--primary);
+  color: var(--secondary);
 }
+h1 {
+  text-decoration: underline;
+  text-align: center;
+  }
 
 h3 { 
   text-decoration: underline;
@@ -33,7 +38,7 @@ textarea {
 }
 
 .Task {
-  color: var(--secondary);
+  
   border-style: solid;
   border-radius: 5%;
   margin: 2%;

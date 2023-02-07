@@ -38,6 +38,7 @@ function App() {
 
   return (
     <div>
+      <h1> Dougie's To do List </h1>
       <div className='TaskList'>
       { tasks?.map((task) => {
           return ( <Task task={task} onComplete={handleTaskComplete} />)
