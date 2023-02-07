@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from "react"
 import { takeCoverage } from "v8";
-import {Priority, Status, TaskItem} from "/Users/douglashaigh/TaskListAPI/Frontend/tasklistux/src/Types"
+import {APIResponse, Priority, Status, TaskItem} from "/Users/douglashaigh/TaskListAPI/Frontend/tasklistux/src/Types"
 
 interface Props { 
     onAdd: ( task: TaskItem ) => void;
@@ -13,7 +13,6 @@ export const AddTaskButton: React.FC<Props> = ({onAdd}) => {
 
     const handleKeyDown = (k: { keyCode: number; }) => {
         if (k.keyCode === 13) {
-            console.log("hello")
             handleAdd();
         }
     }
@@ -42,11 +41,21 @@ export const AddTaskButton: React.FC<Props> = ({onAdd}) => {
             onAdd(task);
             return response.json();
         })
+        .then((JSONResponse) => {
+            task.id = JSONResponse
+        })
         .catch((e) => {console.error(e)})
+        .finally(() => { 
+            clearInput();
+            console.log("task created with ID = " + task.id)
+        })
     }
 
     const handleContentChange = (e: ChangeEvent<HTMLInputElement>) => { 
         setContent(e.target.value);
+    }
+    const clearInput = () => {
+        setContent("")
     }
 
     // const handlePriorityChange = (e: ChangeEvent<HTMLInputElement>) => { 
@@ -56,7 +65,7 @@ export const AddTaskButton: React.FC<Props> = ({onAdd}) => {
     return( 
         <div id="AddTaskButton">
             <p> New task: </p>
-            <input value={content} id="content-input" name="content" onChange={handleContentChange} onKeyDown={handleKeyDown} /> 
+            <input value={content} id="content-input" name="content" onChange={handleContentChange} onKeyDown={handleKeyDown}/> 
             <button onClick={handleAdd} > + </button>
         </div>
     ) 

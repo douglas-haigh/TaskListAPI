@@ -26,7 +26,10 @@ public class TaskController {
     @PostMapping("/tasks/new")
     public Long addTask(@RequestBody Task task) {
         taskRepository.save(task);
+        System.out.println(task.getId());
+        log.info(task.getId().toString());
         return task.getId();
+
     }
     @DeleteMapping("/tasks/complete")
     public String completeTask(@RequestParam Long taskId) {

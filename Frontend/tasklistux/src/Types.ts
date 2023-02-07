@@ -4,6 +4,15 @@ export enum Priority {
     LOW = "LOW",
 }
 
+export interface APIResponse { 
+    id: number;
+    content: string;
+    priority: Priority;
+    status: Status;
+}
+
+
+
 export enum Status {
     NOT_STARTED = "NOT_STARTED",
     IN_PROGRESS = "IN_PROGRESS" ,
