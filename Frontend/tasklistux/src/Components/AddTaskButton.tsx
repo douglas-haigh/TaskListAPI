@@ -1,5 +1,6 @@
 import { ChangeEvent, useState } from "react"
 import { takeCoverage } from "v8";
+import { convertPriority } from "./EnumConverters";
 import {APIResponse, Priority, Status, TaskItem} from "/Users/douglashaigh/TaskListAPI/Frontend/tasklistux/src/Types"
 
 interface Props { 
@@ -11,8 +12,9 @@ export const AddTaskButton: React.FC<Props> = ({onAdd}) => {
     const [content, setContent] = useState("")
     const [priority, setPriority] = useState<Priority>(Priority.MEDIUM)
 
-    const handleKeyDown = (k: { keyCode: number; }) => {
-        if (k.keyCode === 13) {
+    const handleKeyDown = (event: { keyCode: number; preventDefault: () => void; }) => {
+        if (event.keyCode === 13) {
+            event.preventDefault()
             handleAdd();
         }
     }
@@ -51,25 +53,27 @@ export const AddTaskButton: React.FC<Props> = ({onAdd}) => {
             status: task.status.toString()
         })
 
-        fetch(`/api/tasks/new` , {
-            method: "POST",
-            headers: {'Content-type': 'application/json'},
-            body: payload
-        })
-        .then((response) => {
-            onAdd(task);
-            return response.json();
-        })
-        .then((JSONResponse) => {
-            task.id = JSONResponse
-        })
-        .catch((e) => {console.error(e)})
-        .finally(() => { 
-            clearInput();
-            console.log("task created with ID = " + task.id)
-        })
-    }
+        if (content.replace(/\s/g, "").length > 2) {
 
+            fetch(`/api/tasks/new` , {
+                method: "POST",
+                headers: {'Content-type': 'application/json'},
+                body: payload
+            })
+            .then((response) => {
+                onAdd(task);
+                return response.json();
+            })
+            .then((JSONResponse) => {
+                task.id = JSONResponse
+            })
+            .catch((e) => {console.error(e)})
+            .finally(() => { 
+                clearInput();
+                console.log("task created with ID = " + task.id)
+            })
+        }
+    }
 
     return( 
         <div className="Task">
@@ -79,7 +83,7 @@ export const AddTaskButton: React.FC<Props> = ({onAdd}) => {
                 <button onClick={handleAdd} > + </button>
             </div>
             <div id="PriorityButton">
-                <button onClick={handlePriorityClick}> {priority} </button>
+                <button onClick={handlePriorityClick}> {convertPriority(priority)} </button>
             </div>
         </div>
     ) 

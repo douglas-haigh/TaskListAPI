@@ -12,8 +12,8 @@ export const Task: React.FC<Props> = ({task, onComplete}) => {
     return (
         <div className="Task"> 
             <h3> {task.content} </h3>
-            <h5> Priority: {convertPriority(task.priority)} </h5>
-            <h5> Status: {convertStatus(task.status)} </h5>
+            <p> Priority: {convertPriority(task.priority)} </p>
+            <p> Status: {convertStatus(task.status)} </p>
             < CompleteTaskButton task={task} onComplete={onComplete} />
         </div>
     )

@@ -19,6 +19,17 @@ body {
   background-size: cover;
 }
 
+body button {
+  background-color: var(--primary);
+  border-color: var(--secondary);
+  color: var(--secondary);
+  border-radius: 10%;
+  font-weight: bold;
+  font-size: larger;
+  width: fit-content;
+  cursor: pointer;
+}
+
 h1 {
   text-decoration: underline;
   text-align: center;
@@ -27,7 +38,13 @@ h1 {
 
 h3 { 
   word-wrap: break-word;
+  font-size: x-large;
   margin: 5%;
+}
+
+p {
+  margin: 2%;
+  font-size: medium;
 }
 
 textarea {
@@ -35,7 +52,7 @@ textarea {
 }
 
 .TaskList { 
-  margin: 5%;
+  margin: 2%;
   justify-content: center;
   display: grid;
   grid-template-columns: repeat(4,25%);
@@ -50,25 +67,17 @@ textarea {
   text-align: center;
   background-color: var(--primary);
   opacity: 85%;
-
 }
 
 .Task button {
-  background-color: var(--primary);
-  border-color: var(--secondary);
-  color: var(--secondary);
-  border-radius: 10%;
-  font-weight: bold;
-  font-size: larger;
-  width: fit-content;
   margin-bottom: 3%;
-  
 }
 
 #AddTaskButton {
   display: flex;
   flex-direction: column;
-  margin: 2%;
+  margin-left: 2%;
+  margin-right: 2%;
   font-weight: bolder;
   align-items: center;
   font-size: larger;
@@ -90,6 +99,13 @@ textarea {
   border-radius: 15%;
 }
 
+#SortButton {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
