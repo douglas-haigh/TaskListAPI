@@ -10,5 +10,9 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends CrudRepository<Task, Long> {
 
+    List<Task> findByOrderByPriority();
+
+    List<Task> findByPriority(Priority priority);
+
 }
 

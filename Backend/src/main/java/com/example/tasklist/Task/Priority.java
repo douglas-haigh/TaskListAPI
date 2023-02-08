@@ -1,7 +1,7 @@
 package com.example.tasklist.Task;
 
 public enum Priority {
-    LOW,
+    HIGH,
     MEDIUM,
-    HIGH;
+    LOW;
 }

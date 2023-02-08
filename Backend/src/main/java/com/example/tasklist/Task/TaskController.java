@@ -20,7 +20,7 @@ public class TaskController {
 
     @GetMapping("/tasks")
     public Iterable<Task> getTasks() {
-        return taskRepository.findAll();
+        return taskRepository.findByOrderByPriority();
     }
 
     @PostMapping("/tasks/new")
