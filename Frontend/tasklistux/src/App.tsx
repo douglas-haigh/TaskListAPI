@@ -7,6 +7,7 @@ import {Priority, TaskItem }  from './Types'
 
 function App() {
 
+  const ENDPOINT_URL = `/api/tasks` 
   const [loading, setLoading] = useState(false);
   const [tasks, setTasks] = useState< TaskItem[]>([])
 
@@ -23,7 +24,7 @@ function App() {
   }
 
   useEffect(() => {
-      fetch("/api/tasks", {method: "GET"})
+      fetch(ENDPOINT_URL, {method: "GET"})
         .then((response) => {
           console.log(response.status)
           return response.json();
@@ -38,7 +39,7 @@ function App() {
 
   return (
     <div>
-      <h1> Dougie's To do List </h1>
+      <h1> Dougie's To-do List </h1>
       <div className='TaskList'>
       { tasks?.map((task) => {
           return ( <Task task={task} onComplete={handleTaskComplete} />)

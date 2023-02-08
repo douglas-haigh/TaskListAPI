@@ -9,19 +9,39 @@ interface Props {
 export const AddTaskButton: React.FC<Props> = ({onAdd}) => { 
 
     const [content, setContent] = useState("")
-    // const [priority, setPriority] = useState<Priority>()
+    const [priority, setPriority] = useState<Priority>(Priority.MEDIUM)
 
     const handleKeyDown = (k: { keyCode: number; }) => {
         if (k.keyCode === 13) {
             handleAdd();
         }
     }
+    const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => { 
+        setContent(e.target.value);
+    }
+    const clearInput = () => {
+        setContent("")
+    }
+    const handlePriorityClick = () => { 
+        switch(priority) {
+            case Priority.LOW:
+                setPriority(Priority.MEDIUM)
+                break
+            case Priority.MEDIUM:
+                setPriority(Priority.HIGH)
+                break
+            case Priority.HIGH:
+                setPriority(Priority.LOW)
+                break
+        }
+    }
+
     const handleAdd = () => {
         
         const task: TaskItem = {
             id: undefined,
             content: content,
-            priority: Priority.HIGH,
+            priority: priority,
             status: Status.NOT_STARTED,
         }
 
@@ -50,22 +70,17 @@ export const AddTaskButton: React.FC<Props> = ({onAdd}) => {
         })
     }
 
-    const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => { 
-        setContent(e.target.value);
-    }
-    const clearInput = () => {
-        setContent("")
-    }
-
-    // const handlePriorityChange = (e: ChangeEvent<HTMLInputElement>) => { 
-    //     setPriority(e.target.value);
-    // }
 
     return( 
-        <div id="AddTaskButton">
+        <div className="Task">
             <h3><u> Add a task: </u></h3>
-            <textarea value={content} id="content-input" name="content" onChange={handleContentChange} onKeyDown={handleKeyDown} rows={3}/>
-            <button onClick={handleAdd} > + </button>
+            <div id="AddTaskButton"> 
+                <textarea value={content} id="content-input" name="content" onChange={handleContentChange} onKeyDown={handleKeyDown} rows={3}/>
+                <button onClick={handleAdd} > + </button>
+            </div>
+            <div id="PriorityButton">
+                <button onClick={handlePriorityClick}> {priority} </button>
+            </div>
         </div>
     ) 
 }

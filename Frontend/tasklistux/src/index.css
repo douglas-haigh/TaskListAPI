@@ -15,15 +15,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--primary);
   color: var(--secondary);
+  background-image: url(/Users/douglashaigh/TaskListAPI/Frontend/tasklistux/src/Styles/Sakura.png);
+  background-size: cover;
 }
+
 h1 {
   text-decoration: underline;
   text-align: center;
+  font-size: xx-large;
   }
 
 h3 { 
-  text-decoration: underline;
   word-wrap: break-word;
+  margin: 5%;
 }
 
 textarea {
@@ -38,25 +42,38 @@ textarea {
 }
 
 .Task {
-  
   border-style: solid;
+  border-width: medium;
   border-radius: 5%;
-  margin: 2%;
+  margin: 3%;
   font-weight: bolder;
   text-align: center;
+  background-color: var(--primary);
+  opacity: 85%;
+
 }
 
-#AddTaskButton { 
+.Task button {
+  background-color: var(--primary);
+  border-color: var(--secondary);
+  color: var(--secondary);
+  border-radius: 10%;
+  font-weight: bold;
+  font-size: larger;
+  width: fit-content;
+  margin-bottom: 3%;
+  
+}
+
+#AddTaskButton {
   display: flex;
   flex-direction: column;
-  color: var(--secondary);
-  border-style: solid;
-  border-radius: 5%;
   margin: 2%;
-  padding: 4%;
   font-weight: bolder;
-  text-align: center;
   align-items: center;
+  font-size: larger;
+  display: flex;
+  flex-direction: row;
 }
 
 #AddTaskButton textarea {
@@ -66,22 +83,13 @@ textarea {
   border-width: var(--border_thickness);
   border-radius: 5%;
   margin: 3%;
-  width: 80%;
+  width: 80%; 
 }
 
 #AddTaskButton button {
-  background-color: var(--primary);
-  border-color: var(--secondary);
-  color: var(--secondary);
+  border-radius: 15%;
 }
 
-#CompleteTaskButton button {
-  background-color: var(--primary);
-  border-color: var(--secondary);
-  color: var(--secondary);
-  font-weight: bold;
-  margin-bottom: 3%;
-}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
