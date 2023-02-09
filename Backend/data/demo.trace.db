@@ -1,0 +1,3 @@
+2023-02-08 11:15:33 jdbc[21]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "CONTENT CHARACTER VARYING(255)": "'heloooovvvdfnjdnvjdanjvnajdnfvjnaejnvkjadnfkjvnadkjfnvjaedkjvnakdjnfvkjadnkfvnk... (273)"; SQL statement:
+insert into task (content, priority, status, id) values (?, ?, ?, ?) [22001-214]

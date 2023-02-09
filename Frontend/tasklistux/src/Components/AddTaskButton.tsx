@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from "react"
 import { takeCoverage } from "v8";
-import { convertPriority } from "./EnumConverters";
+import { convertPriority } from "../EnumConverters";
 import {APIResponse, Priority, Status, TaskItem} from "/Users/douglashaigh/TaskListAPI/Frontend/tasklistux/src/Types"
 
 interface Props { 
@@ -11,6 +11,7 @@ export const AddTaskButton: React.FC<Props> = ({onAdd}) => {
 
     const [content, setContent] = useState("")
     const [priority, setPriority] = useState<Priority>(Priority.MEDIUM)
+    const ENDPOINT_URL = `/api/tasks/new`;
 
     const handleKeyDown = (event: { keyCode: number; preventDefault: () => void; }) => {
         if (event.keyCode === 13) {
@@ -55,7 +56,7 @@ export const AddTaskButton: React.FC<Props> = ({onAdd}) => {
 
         if (content.replace(/\s/g, "").length > 2) {
 
-            fetch(`/api/tasks/new` , {
+            fetch(ENDPOINT_URL, {
                 method: "POST",
                 headers: {'Content-type': 'application/json'},
                 body: payload

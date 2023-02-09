@@ -1,5 +1,4 @@
-import { useState } from "react"
-import {Priority, Status, TaskItem} from "/Users/douglashaigh/TaskListAPI/Frontend/tasklistux/src/Types"
+import {TaskItem} from "/Users/douglashaigh/TaskListAPI/Frontend/tasklistux/src/Types"
 
 interface Props { 
     task: TaskItem;
@@ -14,7 +13,7 @@ export const CompleteTaskButton: React.FC<Props> = ({task, onComplete}) => {
 
         console.log("completing task with id = " + task.id);
             
-        fetch(ENDPOINT_URL +`?taskId=${task.id}` , {method: "DELETE"})
+        fetch(ENDPOINT_URL +`?taskId=${task.id}` , {method: "PATCH"})
         .then((response) => {
             console.log(response)
         })

@@ -6,8 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.tasklist.entity.Task;
-
-
 @RestController()
 public class TaskController {
     TaskRepository taskRepository;
@@ -23,6 +21,15 @@ public class TaskController {
         return taskRepository.findByOrderByPriority();
     }
 
+    @PatchMapping("/tasks/updateStatus")
+    public void updateTask(@RequestParam Long taskId, @RequestParam Status newStatus) {
+        log.info("Update Status endpoint hit");
+        Task task = taskRepository.findById(taskId).orElseThrow();
+        task.setStatus(newStatus);
+        taskRepository.save(task);
+        log.info("Task Status updated with id  = " + taskId);
+    }
+
     @PostMapping("/tasks/new")
     public Long addTask(@RequestBody Task task) {
         taskRepository.save(task);
@@ -31,11 +38,12 @@ public class TaskController {
         return task.getId();
 
     }
-    @DeleteMapping("/tasks/complete")
-    public String completeTask(@RequestParam Long taskId) {
-        log.info("Delete Mapping endpoint hit");
-        taskRepository.deleteById(taskId);
-        log.info("deleting task with id = " + taskId);
-        return "task completed";
+    @PatchMapping("/tasks/complete")
+    public void completeTask(@RequestParam Long taskId) {
+        log.info("Complete task endpoint hit");
+        Task task = taskRepository.findById(taskId).orElseThrow();
+        task.setStatus(Status.COMPLETED);
+        taskRepository.save(task);
+        log.info("Complete Task with id = " + taskId);
     }
 }
