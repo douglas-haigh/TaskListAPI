@@ -62,12 +62,19 @@ export const AddTaskButton: React.FC<Props> = ({onAdd}) => {
                 body: payload
             })
             .then((response) => {
-                onAdd(task);
-                return response.json();
+                if (response.ok) { 
+                    onAdd(task);
+                    const location = response.headers.get("Location")!
+                    const idString = location.split('/').pop()!
+                    const id = parseInt(idString)
+
+                    task.id = id;
+                    // return response.json();
+                }
             })
-            .then((JSONResponse) => {
-                task.id = JSONResponse
-            })
+            // .then((JSONResponse) => {
+            //     console.log(JSONResponse)
+            // })
             .catch((e) => {console.error(e)})
             .finally(() => { 
                 clearInput();

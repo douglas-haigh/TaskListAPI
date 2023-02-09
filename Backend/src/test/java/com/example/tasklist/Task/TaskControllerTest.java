@@ -8,13 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.List;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest
 @AutoConfigureMockMvc
@@ -27,7 +29,7 @@ public class TaskControllerTest {
     ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
-    public void getAll() throws Exception {
+    public void testGetAllReturnsTasks() throws Exception {
 
         when(mockRepository.findByOrderByPriority()).thenReturn(List.of(
                 new Task("Sample task one", Priority.LOW, Status.NOT_STARTED),
@@ -44,8 +46,29 @@ public class TaskControllerTest {
         Assertions.assertThat(taskList).hasSize(3);
 
         System.out.println(taskList);
-        //        System.out.println(result.getResponse().getContentAsString());
     }
+
+    @Test
+    public void testAddTaskCreatesATask() throws Exception {
+
+        Task task = new Task("Sample task to add", Priority.LOW, Status.IN_PROGRESS);
+                task.setId(1L);
+
+        String taskJson = objectMapper.writeValueAsString(task);
+        System.out.println(taskJson);
+
+        when(mockRepository.save(task)).thenReturn(task);
+
+        MvcResult result = mockMvc.perform(
+
+                post("/tasks/new")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(taskJson)
+                )
+                .andExpect(status().isCreated())
+                .andExpect(header().exists("Location"))
+                .andReturn();
+        }
 
 
 }

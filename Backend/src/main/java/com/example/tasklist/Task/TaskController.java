@@ -4,8 +4,12 @@ import com.example.tasklist.TaskListApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.tasklist.entity.Task;
+
+import java.net.URI;
+
 @RestController()
 public class TaskController {
     TaskRepository taskRepository;
@@ -31,13 +35,15 @@ public class TaskController {
     }
 
     @PostMapping("/tasks/new")
-    public Long addTask(@RequestBody Task task) {
+    public ResponseEntity addTask(@RequestBody Task task) {
         taskRepository.save(task);
+
         System.out.println(task.getId());
         log.info(task.getId().toString());
-        return task.getId();
 
+        return ResponseEntity.created(URI.create("/task/" + task.getId())).build();
     }
+
     @PatchMapping("/tasks/complete")
     public void completeTask(@RequestParam Long taskId) {
         log.info("Complete task endpoint hit");
