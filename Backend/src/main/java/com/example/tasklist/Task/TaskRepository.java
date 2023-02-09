@@ -11,7 +11,6 @@ import java.util.List;
 public interface TaskRepository extends CrudRepository<Task, Long> {
 
     List<Task> findByOrderByPriority();
-
     List<Task> findByPriority(Priority priority);
 
 }
