@@ -25,7 +25,7 @@ public class Task {
 
     public String toString() {
         return String.format(
-                "Customer[id=%d, content='%s', priority='%s', status='%s']",
+                "[id=%d, content='%s', priority='%s', status='%s']",
                 id, content, priority, status);
     }
 
