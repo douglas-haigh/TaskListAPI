@@ -15,9 +15,10 @@ export const CompleteTaskButton: React.FC<Props> = ({task, onComplete}) => {
             
         fetch(ENDPOINT_URL +`?taskId=${task.id}` , {method: "PATCH"})
         .then((response) => {
-            console.log(response)
+            return response.json()
         })
-        .then(() => {
+        .then((JSONResponse) => {
+            task.completionDate = JSONResponse.substring(0,10);
             onComplete(task);
         })
         .catch((e) => {console.error(e)})

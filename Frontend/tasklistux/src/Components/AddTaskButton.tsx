@@ -54,6 +54,8 @@ export const AddTaskButton: React.FC<Props> = ({onAdd}) => {
             status: task.status.toString()
         })
 
+        console.log(payload);
+
         if (content.replace(/\s/g, "").length > 2) {
 
             fetch(ENDPOINT_URL, {
@@ -84,7 +86,7 @@ export const AddTaskButton: React.FC<Props> = ({onAdd}) => {
     }
 
     return( 
-        <div className="Task">
+        <div className="Task highlight">
             <h3><u> Add a task: </u></h3>
             <div id="AddTaskButton"> 
                 <textarea value={content} id="content-input" name="content" onChange={handleContentChange} onKeyDown={handleKeyDown} rows={3}/>

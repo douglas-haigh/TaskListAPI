@@ -22,4 +22,5 @@ export interface TaskItem {
     content: string;
     priority: Priority;
     status: Status;
+    completionDate?: String;
 }

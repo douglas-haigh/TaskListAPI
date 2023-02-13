@@ -11,7 +11,16 @@ interface Props{
 export const Task: React.FC<Props> = ({task, onComplete}) => {
 
     const [status, setStatus] = useState(task.status);
+    let classList;
+    
     const ENDPOINT_URL = `/api/tasks/updateStatus`;
+
+    if (task.status === Status.IN_PROGRESS) {
+        classList = "Task highlight"
+    }
+    else {
+        classList = "Task"
+    }
 
     const handleStatusClick = () => {
             switch(status) {
@@ -38,7 +47,7 @@ export const Task: React.FC<Props> = ({task, onComplete}) => {
     }
    
     return (
-        <div className="Task"> 
+        <div className={classList}> 
             <h3> {task.content} </h3>
             <p> Priority: {convertPriority(task.priority)} </p>
             <button onClick={handleStatusClick}> Status: {convertStatus(task.status)} </button>

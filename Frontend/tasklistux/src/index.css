@@ -59,6 +59,11 @@ textarea {
   word-wrap: break-word;
 }
 
+.Task.highlight{ 
+  opacity: 100%;
+  border-width: thick;
+}
+
 .TaskList { 
   margin: 2%;
   justify-content: center;
@@ -74,7 +79,7 @@ textarea {
   font-weight: bolder;
   text-align: center;
   background-color: var(--primary);
-  opacity: 85%;
+  opacity: 75%;
 }
 
 .Task button {
