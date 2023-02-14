@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { AddTaskButton } from './Components/AddTaskButton';
 import { CompletedTask } from './Components/CompletedTask';
+import { DeleteCompleteTasks } from './Components/DeleteCompletedTasks';
 import { SortByPriorityButton } from './Components/SortByPriority';
 import { Task } from './Components/Task';
 import {Status, TaskItem }  from './Types'
@@ -32,6 +33,12 @@ function App() {
     setCompletedTasks(updatedCompletedTasks);
   }
 
+  const handleTasksDelete = () => {
+    console.log("Clearing completed tasks...")
+    const updatedCompleteTasks:TaskItem[] = [];
+    setCompletedTasks(updatedCompleteTasks);
+  }
+
   useEffect(() => {
       fetch(ENDPOINT_URL, {method: "GET"})
         .then((response) => {
@@ -58,8 +65,12 @@ function App() {
       })}
       <AddTaskButton onAdd={handleTaskAdd}/>
       </div>
-
-      <h2> Completed </h2>
+    
+      <div id="CompletedTasksHeader">
+        <h2> Completed </h2>
+        <DeleteCompleteTasks onDelete={handleTasksDelete}/> 
+      </div>
+       
       <div className='TaskList'>
         
         { completedTasks?.map((task) => {

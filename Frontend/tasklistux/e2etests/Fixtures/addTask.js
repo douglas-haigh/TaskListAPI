@@ -6,12 +6,9 @@ import { ok } from 'assert'
 
 fixture("Add Task Button").page("http://localhost:3000")
 
-test("A new task can be added.", async t => { 
-
-    
+test("A new task can be added.", async t => {   
     await t
         .typeText(AddTaskButton.taskDescriptionInput, sampleTask.content)
         .click(AddTaskButton.addButton)
         .expect(Selector('h3').withText(sampleTask.content).exists).ok()
-
 })

@@ -36,14 +36,6 @@ h1 {
   font-size: xx-large;
   }
 
-h2 {
-  text-align: center;
-  background-color: var(--primary);
-  border-style: solid;
-  border-color: var(--secondary);
-  padding: 1%;
-}
-
 h3 { 
   word-wrap: break-word;
   font-size: x-large;
@@ -134,6 +126,22 @@ textarea {
   align-items: center;
 }
 
+#CompletedTasksHeader { 
+  display: grid;
+  grid-template-columns: 1fr auto;
+  justify-items: center;
+  align-items: center;
+  background-color: var(--primary);
+  border-style: solid;
+  border-left: 0ch;
+  border-right: 0ch;
+  border-color: var(--secondary);
+}
+
+#DeleteCompletedTasks {
+  margin-right: 50%;
+  
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
