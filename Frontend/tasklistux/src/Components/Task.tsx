@@ -32,6 +32,7 @@ export const Task: React.FC<Props> = ({task, onComplete}) => {
                 case Status.IN_PROGRESS:
                     task.status = Status.NOT_STARTED
                     setStatus(Status.NOT_STARTED)
+                    updateBackendStatus(Status.NOT_STARTED)
                     break
             }
     }

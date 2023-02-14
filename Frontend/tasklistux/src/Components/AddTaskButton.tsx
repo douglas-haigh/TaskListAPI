@@ -88,13 +88,11 @@ export const AddTaskButton: React.FC<Props> = ({onAdd}) => {
     return( 
         <div className="Task highlight">
             <h3><u> Add a task: </u></h3>
-            <div id="AddTaskButton"> 
+            <div id="AddTaskButton" test-id='AddTaskButton'> 
                 <textarea value={content} id="content-input" name="content" onChange={handleContentChange} onKeyDown={handleKeyDown} rows={3}/>
-                <button onClick={handleAdd} > + </button>
+                <button id="addButton" onClick={handleAdd} > + </button>
             </div>
-            <div id="PriorityButton">
-                <button onClick={handlePriorityClick}> {convertPriority(priority)} </button>
-            </div>
+            <button id="PriorityButton" onClick={handlePriorityClick}> {convertPriority(priority)} </button>
         </div>
     ) 
 }
