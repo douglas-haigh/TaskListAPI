@@ -5,8 +5,9 @@ import com.example.tasklist.Task.Status;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
+
+import java.time.LocalDate;
 
 @Entity
 //@Table(name="TASKS")
@@ -15,6 +16,7 @@ public class Task {
     String content;
     Priority priority;
     Status status;
+    LocalDate completionDate;
 
     protected Task() {}
     public Task(String pContent, Priority pPriority, Status pStatus) {
@@ -46,4 +48,6 @@ public class Task {
     public void setPriority(Priority priority) {this.priority = priority;}
     public Status getStatus() {return status;}
     public void setStatus(Status status) {this.status = status;}
+    public LocalDate getCompletionDate() {return completionDate;}
+    public void setCompletionDate(LocalDate completionDate) {this.completionDate = completionDate;}
 }

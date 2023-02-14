@@ -6,6 +6,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.invocation.InvocationOnMock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -16,15 +17,14 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import static com.example.tasklist.Task.Priority.*;
 import static com.example.tasklist.Task.Status.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest
@@ -145,5 +145,30 @@ public class TaskControllerTest {
 
     }
 
+    @Test
+    public void testDeleteCompletedTasks() throws Exception {
 
+        Task task = new Task("Sample task to be deleted", LOW, COMPLETED);
+        task.setId(1L);
+        ArrayList<Task> taskList = new ArrayList<>();
+        taskList.add(task);
+
+        when(mockRepository.save(task)).thenReturn(task);
+        System.out.println("Tasks before endpoint hit: " + taskList);
+
+        when(mockRepository.findAll()).thenReturn(taskList);
+        doAnswer((InvocationOnMock invocation) -> {
+            taskList.remove(task);
+            return null;
+        }).when(mockRepository).deleteTasksByStatus(COMPLETED);
+
+        MvcResult result = mockMvc.perform(
+                delete("/tasks/completed/delete"))
+                    .andExpect(status().isNoContent())
+                    .andReturn();
+
+        assertEquals(mockRepository.findAll(), new ArrayList<>());
+        Assertions.assertThat(taskList).hasSize(0);
+        System.out.println("Tasks after endpoint hit: " + taskList);
+    }
 }

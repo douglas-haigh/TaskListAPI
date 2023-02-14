@@ -13,8 +13,6 @@ import java.net.URI;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 @RestController()
@@ -35,7 +33,7 @@ public class TaskController {
 
     @PatchMapping("/tasks/updateStatus")
     public ResponseEntity updateTask(@RequestParam Long taskId, @RequestParam Status newStatus) {
-        log.info("Update Status endpoint hit");
+//        log.info("Update Status endpoint hit");
         Task task = taskRepository.findById(taskId).orElseThrow();
         task.setStatus(newStatus);
         taskRepository.save(task);
@@ -55,12 +53,13 @@ public class TaskController {
 
     @PatchMapping("/tasks/complete")
     public ResponseEntity<Instant> completeTask(@RequestParam Long taskId) {
-        log.info("Complete task endpoint hit");
+//        log.info("Complete task endpoint hit");
 
         Task task = taskRepository.findById(taskId).orElseThrow();
         task.setStatus(Status.COMPLETED);
         Instant timestamp = Instant.now();
         LocalDate completionDate = timestamp.atZone(ZoneId.systemDefault()).toLocalDate();
+        task.setCompletionDate(completionDate);
 
         System.out.println(completionDate);
         taskRepository.save(task);
@@ -68,5 +67,13 @@ public class TaskController {
         log.info("Completed task with id = " + taskId + " at time: " + timestamp);
 
         return ResponseEntity.ok(timestamp);
+    }
+
+    @DeleteMapping("/tasks/completed/delete")
+    public ResponseEntity<Void> clearCompletedTasks() {
+        log.info("DELETE endpoint hit");
+        taskRepository.deleteTasksByStatus(Status.COMPLETED);
+        log.info("completed tasks deleted from database");
+        return ResponseEntity.noContent().build();
     }
 }
