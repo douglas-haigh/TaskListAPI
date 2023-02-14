@@ -26,7 +26,6 @@ function App() {
   })}
 
   const handleTaskComplete = (task: TaskItem) => {
-    console.log("task completed")
     const updatedIncompleteTasks = incompleteTasks.filter((t) => t.id !== task.id)
     const updatedCompletedTasks = [...completedTasks, task]
     setIncompleteTasks(updatedIncompleteTasks);
@@ -34,7 +33,6 @@ function App() {
   }
 
   const handleTasksDelete = () => {
-    console.log("Clearing completed tasks...")
     const updatedCompleteTasks:TaskItem[] = [];
     setCompletedTasks(updatedCompleteTasks);
   }
@@ -42,7 +40,6 @@ function App() {
   useEffect(() => {
       fetch(ENDPOINT_URL, {method: "GET"})
         .then((response) => {
-          console.log(response.status)
           return response.json();
         })
         .then((JSONResponse: TaskItem[]) => {
@@ -61,7 +58,7 @@ function App() {
       <SortByPriorityButton onSort={handleTaskSort} />
       <div className='TaskList'>
       { incompleteTasks?.map((task) => {
-          return ( <Task task={task} onComplete={handleTaskComplete} />)
+          return ( <Task key={task.id} task={task} onComplete={handleTaskComplete} />)
       })}
       <AddTaskButton onAdd={handleTaskAdd}/>
       </div>

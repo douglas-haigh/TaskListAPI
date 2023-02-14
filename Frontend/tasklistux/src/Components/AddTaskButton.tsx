@@ -54,8 +54,6 @@ export const AddTaskButton: React.FC<Props> = ({onAdd}) => {
             status: task.status.toString()
         })
 
-        console.log(payload);
-
         if (content.replace(/\s/g, "").length > 2) {
 
             fetch(ENDPOINT_URL, {
