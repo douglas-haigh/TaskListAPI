@@ -1,7 +1,6 @@
 import { Selector } from "testcafe";
 
 export class Task {
-
     task;
     taskId;
     taskHeader; 
@@ -16,4 +15,24 @@ export class Task {
         this.taskStatusbutton = this.task.find('button').withAttribute('test-id', 'taskStatusButton')
         this.completeTaskButton = this.task.find('button').withText("Done")
     }
+
+    // getId = async () => {
+    //     const id = await this.taskId.textContent
+    //     return id
+    // }
+
+    // getHeader = async () => {
+    //     const header = await this.taskHeader.textContent
+    //     return header
+    // }
+
+    // getStatus = async () => {
+    //     const status = await this.taskStatusbutton.textContent
+    //     return status
+    // }
+
+    // getPriority = async () => { 
+    //     const priority = await this.taskPriority.textContent
+    //     return priority
+    // }
 }

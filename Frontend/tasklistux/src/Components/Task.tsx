@@ -48,10 +48,10 @@ export const Task: React.FC<Props> = ({task, onComplete}) => {
     }
    
     return (
-        <div className={classList}> 
+        <div className={classList} data-testid="Task"> 
             <h3> {task.content} </h3>
-            <p> Priority: {convertPriority(task.priority)} </p>
-            <button test-id="taskStatusButton" onClick={handleStatusClick}> Status: {convertStatus(task.status)} </button>
+            <p data-testid="taskPriority"> Priority: {convertPriority(task.priority)} </p>
+            <button className="taskStatusButton" onClick={handleStatusClick}> Status: {convertStatus(task.status)} </button>
             <CompleteTaskButton task={task} onComplete={onComplete} />
         </div>
     )

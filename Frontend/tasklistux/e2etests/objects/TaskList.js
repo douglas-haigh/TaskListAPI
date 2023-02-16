@@ -3,5 +3,7 @@ import { Selector } from 'testcafe';
 
 export default {
     addTaskButton: Selector('.AddTaskButton'),
-    clearCompletedTasksButton: Selector('button').withExactText("Clear")
+    clearCompletedTasksButton: Selector('button').withExactText("Clear"),
+    sortButton: Selector('button').withExactText('Sort'),
+    allTasks: Selector('.Task')
     }

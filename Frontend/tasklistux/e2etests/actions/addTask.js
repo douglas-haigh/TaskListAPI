@@ -1,9 +1,9 @@
 import AddTaskButton from '../objects/AddTaskButton'
-import {sampleTask} from "../Data"
+import {sampleTaskData} from "../Data"
 
 export const addSampleTask = async (t) => {
     await t
-        .typeText(AddTaskButton.taskDescriptionInput, sampleTask.content)
+        .typeText(AddTaskButton.taskDescriptionInput, sampleTaskData.content)
         .click(AddTaskButton.addButton)
 }
 
@@ -13,3 +13,10 @@ export const addTaskWithContent = async (t,content) => {
         .click(AddTaskButton.addButton)
 }
 
+export const addSampleTaskWithLowPriority = async (t, priority) => {
+    await t
+        .click(AddTaskButton.priorityButton)
+        .click(AddTaskButton.priorityButton)
+        .typeText(AddTaskButton.taskDescriptionInput, sampleTaskData.content)
+        .click(AddTaskButton.addButton)
+}
