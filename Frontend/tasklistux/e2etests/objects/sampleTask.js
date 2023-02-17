@@ -9,5 +9,5 @@ export default {
     taskTitle: parent.find('h3'),
     taskPriority: parent.find('p'),
     taskStatusButton: parent.find('.taskStatusButton'),
-    taskCompleteButton: parent.find('.CompleteTaskButton')
+    completeTaskButton: parent.find('.CompleteTaskButton')
 }

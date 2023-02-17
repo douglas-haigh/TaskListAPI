@@ -5,7 +5,6 @@ import TaskList from '../objects/TaskList'
 import {highPriorityTaskData, lowPriorityTaskData, mediumPriorityTaskData, sampleTaskData} from "../Data"
 import {addSampleTask, addSampleTaskWithLowPriority, addSampleTaskWithHighPriority, addSampleTaskWithMediumPriority }from '../actions/addTask'
 import {completeTask, clearCompletedTasks} from "../actions/cleanUp"
-import { Console } from 'console'
 
 fixture("Change Existing Task").page("http://localhost:3000")
 
@@ -55,9 +54,9 @@ test("The tests can be sorted due to priority", async (t) => {
     console.log("Task 3: " + taskThree)
 
     await t
-        .expect(taskOne).contains("High")
-        .expect(taskTwo).contains("Medium")
-        .expect(taskThree).contains("Low")
+        .expect(taskOne).contains("Priority: High")
+        .expect(taskTwo).contains("Priority: Medium")
+        .expect(taskThree).contains("Priority: Low")
 
 }).after(async (t) => {
     const lowPTaskClear = new Task(lowPriorityTaskData.content);
@@ -70,3 +69,11 @@ test("The tests can be sorted due to priority", async (t) => {
     await clearCompletedTasks(t);
 })
 
+test("An existing Task can be completed", async (t) => {
+    await addSampleTask(t)
+    await t
+        .click(sampleTask.completeTaskButton)
+        .expect(Selector('.Task').withText(sampleTaskData.content).exists).notOk();
+}).after(async (t) => {
+    await clearCompletedTasks(t)
+})
