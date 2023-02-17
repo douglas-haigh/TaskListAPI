@@ -25,10 +25,7 @@ test("A Task cannot be added if description is too short", async t => {
     await addTaskWithContent(t, "s");
     await t
         .expect((Selector('h3').withExactText("s")).exists).notOk();
-}).after(async (t) => {
-    const taskToClearup = new Task("s");
-    await completeTaskAndClear(t, taskToClearup);
-  });
+})
 
 test("You can change the priority of a task before adding", async t => {
     await t.click(AddTaskButton.priorityButton)

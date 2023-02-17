@@ -24,7 +24,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "test:chrome": "testcafe chrome ./e2etests"
+    "test:chrome": "testcafe chrome ./e2etests/Fixtures",
+    "test:chrome/changeTask": "testcafe chrome ./e2etests/Fixtures/changeTask.js",
+    "test:chrome/createTask": "testcafe chrome ./e2etests/Fixtures/createTask.js"
   },
   "eslintConfig": {
     "extends": [
