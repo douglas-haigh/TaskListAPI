@@ -51,6 +51,12 @@ textarea {
   word-wrap: break-word;
 }
 
+.loading {
+  font-size: xx-large;
+  text-align: center;
+  font-weight: bolder;
+}
+
 .Task.highlight{ 
   opacity: 100%;
   border-width: thick;
