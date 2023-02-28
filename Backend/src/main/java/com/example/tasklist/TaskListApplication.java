@@ -14,7 +14,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class TaskListApplication implements CommandLineRunner {
 
-
     private final TaskRepository taskRepository;
 
     @Autowired

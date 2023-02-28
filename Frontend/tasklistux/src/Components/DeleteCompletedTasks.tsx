@@ -4,7 +4,7 @@ interface Props {
 
 export const DeleteCompleteTasks:React.FC<Props> = ({onDelete}) => {
 
-    const ENDPOINT_URL = `/api/tasks/completed/delete`
+    const ENDPOINT_URL = `/api/tasks/completed`
 
     const handleDelete = () => {
 

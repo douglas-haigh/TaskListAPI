@@ -13,7 +13,7 @@ export const Task: React.FC<Props> = ({task, onComplete}) => {
     const [status, setStatus] = useState(task.status);
     let classList;
     
-    const ENDPOINT_URL = `/api/tasks/updateStatus`;
+    const ENDPOINT_URL = `/api/tasks/status`;
 
     if (task.status === Status.IN_PROGRESS) {
         classList = "Task highlight"

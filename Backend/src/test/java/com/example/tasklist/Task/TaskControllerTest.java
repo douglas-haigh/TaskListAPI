@@ -30,16 +30,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest
 @AutoConfigureMockMvc
 public class TaskControllerTest {
-
     @MockBean
     TaskRepository mockRepository;
     @Autowired
     MockMvc mockMvc;
     ObjectMapper objectMapper = new ObjectMapper();
-    @BeforeEach
-    public void setUp() {
-
-    }
 
     @Test
     public void testGetAllReturnsTasks() throws Exception {
@@ -104,7 +99,7 @@ public class TaskControllerTest {
         System.out.println("Log information: \n");
 
         MvcResult result = mockMvc.perform(
-                patch("/tasks/complete")
+                patch("/tasks/status")
                         .param("taskId", task.getId().toString())
                 )
                 .andExpect(status().isOk())
@@ -133,7 +128,7 @@ public class TaskControllerTest {
         when(mockRepository.findById(1L)).thenReturn(Optional.of(task));
 
         MvcResult result = mockMvc.perform(
-                patch("/tasks/updateStatus")
+                patch("/tasks/status")
                         .param("taskId", task.getId().toString())
                         .param("newStatus", NOT_STARTED.toString())
                 )
@@ -163,7 +158,7 @@ public class TaskControllerTest {
         }).when(mockRepository).deleteTasksByStatus(COMPLETED);
 
         MvcResult result = mockMvc.perform(
-                delete("/tasks/completed/delete"))
+                delete("/tasks/completed"))
                     .andExpect(status().isNoContent())
                     .andReturn();
 

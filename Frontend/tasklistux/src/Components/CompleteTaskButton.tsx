@@ -1,4 +1,4 @@
-import {TaskItem} from "/Users/douglashaigh/TaskListAPI/Frontend/tasklistux/src/Types"
+import {Status, TaskItem} from "/Users/douglashaigh/TaskListAPI/Frontend/tasklistux/src/Types"
 
 interface Props { 
     task: TaskItem;
@@ -7,13 +7,13 @@ interface Props {
 
 export const CompleteTaskButton: React.FC<Props> = ({task, onComplete}) => { 
 
-    const ENDPOINT_URL = `/api/tasks/complete`
+    const ENDPOINT_URL = `/api/tasks/status`
 
     const handleComplete = () => {
 
         console.log("completing task with id = " + task.id);
             
-        fetch(ENDPOINT_URL +`?taskId=${task.id}` , {method: "PATCH"})
+        fetch(ENDPOINT_URL +`?taskId=${task.id}&newStatus=${Status.COMPLETED}` , {method: "PATCH"})
         .then((response) => {
             return response.json()
         })

@@ -31,13 +31,23 @@ public class TaskController {
         return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
 
-    @PatchMapping("/tasks/updateStatus")
+    @PatchMapping("/tasks/status")
     public ResponseEntity updateTask(@RequestParam Long taskId, @RequestParam Status newStatus) {
-//        log.info("Update Status endpoint hit");
+
         Task task = taskRepository.findById(taskId).orElseThrow();
+
         task.setStatus(newStatus);
         taskRepository.save(task);
         log.info("Task Status updated with id  = " + taskId);
+
+        if (newStatus == Status.COMPLETED) {
+            Instant timestamp = Instant.now();
+            LocalDate completionDate = timestamp.atZone(ZoneId.systemDefault()).toLocalDate();
+            task.setCompletionDate(completionDate);
+            log.info("Completed task with id = " + taskId + " at time: " + timestamp);
+            return ResponseEntity.ok(timestamp);
+        }
+
         return ResponseEntity.noContent().build();
     }
 
@@ -51,29 +61,12 @@ public class TaskController {
         return ResponseEntity.created(URI.create("/task/" + task.getId())).build();
     }
 
-    @PatchMapping("/tasks/complete")
-    public ResponseEntity<Instant> completeTask(@RequestParam Long taskId) {
-//        log.info("Complete task endpoint hit");
-
-        Task task = taskRepository.findById(taskId).orElseThrow();
-        task.setStatus(Status.COMPLETED);
-        Instant timestamp = Instant.now();
-        LocalDate completionDate = timestamp.atZone(ZoneId.systemDefault()).toLocalDate();
-        task.setCompletionDate(completionDate);
-
-        System.out.println(completionDate);
-        taskRepository.save(task);
-
-        log.info("Completed task with id = " + taskId + " at time: " + timestamp);
-
-        return ResponseEntity.ok(timestamp);
-    }
-
-    @DeleteMapping("/tasks/completed/delete")
+    @DeleteMapping("/tasks/completed")
     public ResponseEntity<Void> clearCompletedTasks() {
         log.info("DELETE endpoint hit");
         taskRepository.deleteTasksByStatus(Status.COMPLETED);
         log.info("completed tasks deleted from database");
         return ResponseEntity.noContent().build();
     }
+
 }
