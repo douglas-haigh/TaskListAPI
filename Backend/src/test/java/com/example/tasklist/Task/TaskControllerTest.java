@@ -36,6 +36,11 @@ public class TaskControllerTest {
     MockMvc mockMvc;
     ObjectMapper objectMapper = new ObjectMapper();
 
+    final String GET_ENDPOINT = "/tasks";
+    final String PATCH_ENDPOINT = "/tasks/status";
+    final String POST_ENDPOINT = "/tasks/new";
+    final String DELETE_ENDPOINT = "/tasks/completed";
+
     @Test
     public void testGetAllReturnsTasks() throws Exception {
 
@@ -44,7 +49,7 @@ public class TaskControllerTest {
                 new Task("Sample task two", Priority.MEDIUM, IN_PROGRESS),
                 new Task("Sample task three", Priority.HIGH, Status.COMPLETED)));
 
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/tasks"))
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get(GET_ENDPOINT))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -71,7 +76,7 @@ public class TaskControllerTest {
 
         MvcResult result = mockMvc.perform(
 
-                post("/tasks/new")
+                post(POST_ENDPOINT)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(taskJson)
                 )
@@ -99,8 +104,9 @@ public class TaskControllerTest {
         System.out.println("Log information: \n");
 
         MvcResult result = mockMvc.perform(
-                patch("/tasks/status")
+                patch(PATCH_ENDPOINT)
                         .param("taskId", task.getId().toString())
+                        .param("newStatus", COMPLETED.toString())
                 )
                 .andExpect(status().isOk())
                 .andReturn();
@@ -128,7 +134,7 @@ public class TaskControllerTest {
         when(mockRepository.findById(1L)).thenReturn(Optional.of(task));
 
         MvcResult result = mockMvc.perform(
-                patch("/tasks/status")
+                patch(PATCH_ENDPOINT)
                         .param("taskId", task.getId().toString())
                         .param("newStatus", NOT_STARTED.toString())
                 )
@@ -158,7 +164,7 @@ public class TaskControllerTest {
         }).when(mockRepository).deleteTasksByStatus(COMPLETED);
 
         MvcResult result = mockMvc.perform(
-                delete("/tasks/completed"))
+                delete(DELETE_ENDPOINT))
                     .andExpect(status().isNoContent())
                     .andReturn();
 

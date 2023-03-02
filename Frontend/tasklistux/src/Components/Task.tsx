@@ -51,7 +51,7 @@ export const Task: React.FC<Props> = ({task, onComplete}) => {
         <div className={classList} data-testid="Task"> 
             <h3> {task.content} </h3>
             <p data-testid="taskPriority"> Priority: {convertPriority(task.priority)} </p>
-            <button className="taskStatusButton" onClick={handleStatusClick}> Status: <br /> {convertStatus(task.status)}  </button>
+            <button aria-label = "Toggle task status" className="taskStatusButton" onClick={handleStatusClick}> Status: <br /> {convertStatus(task.status)}  </button>
             <CompleteTaskButton task={task} onComplete={onComplete} />
         </div>
     )

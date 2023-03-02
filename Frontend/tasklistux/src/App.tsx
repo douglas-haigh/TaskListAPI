@@ -11,6 +11,7 @@ function App() {
 
   const ENDPOINT_URL = `/api/tasks` 
   const [loading, setLoading] = useState<boolean>();
+  const [tasks, setTasks] = useState<TaskItem[]>([])
   const [incompleteTasks, setIncompleteTasks] = useState< TaskItem[]>([])
   const [completedTasks, setCompletedTasks] = useState<TaskItem[]>([])
   const [sort, setSort] = useState(false);

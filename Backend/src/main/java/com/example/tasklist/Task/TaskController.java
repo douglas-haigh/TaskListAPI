@@ -8,18 +8,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.tasklist.entity.Task;
-
 import java.net.URI;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.List;
 
 @RestController()
 public class TaskController {
-    TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
     private static final Logger log = LoggerFactory.getLogger(TaskListApplication.class);
-
     @Autowired
     public TaskController(final TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
@@ -38,16 +33,14 @@ public class TaskController {
 
         task.setStatus(newStatus);
         taskRepository.save(task);
-        log.info("Task Status updated with id  = " + taskId);
 
         if (newStatus == Status.COMPLETED) {
-            Instant timestamp = Instant.now();
-            LocalDate completionDate = timestamp.atZone(ZoneId.systemDefault()).toLocalDate();
-            task.setCompletionDate(completionDate);
-            log.info("Completed task with id = " + taskId + " at time: " + timestamp);
-            return ResponseEntity.ok(timestamp);
+            task.completeTask();
+            log.info("Completed task with id {} at time {}", taskId, task.getCompletionDate());
+            return ResponseEntity.ok(task.getCompletionDate());
         }
 
+        log.info("Status updated to {} for task with id {}", newStatus, taskId);
         return ResponseEntity.noContent().build();
     }
 
@@ -55,17 +48,15 @@ public class TaskController {
     public ResponseEntity addTask(@RequestBody Task task) {
         taskRepository.save(task);
 
-        System.out.println(task.getId());
-        log.info(task.getId().toString());
+        log.info("Added Task with ID {}", task.getId().toString());
 
         return ResponseEntity.created(URI.create("/task/" + task.getId())).build();
     }
 
     @DeleteMapping("/tasks/completed")
     public ResponseEntity<Void> clearCompletedTasks() {
-        log.info("DELETE endpoint hit");
         taskRepository.deleteTasksByStatus(Status.COMPLETED);
-        log.info("completed tasks deleted from database");
+        log.info("Completed tasks deleted from database");
         return ResponseEntity.noContent().build();
     }
 

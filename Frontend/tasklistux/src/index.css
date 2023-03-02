@@ -1,7 +1,9 @@
 :root {
-  --primary: rgb(239, 212, 249);
-  --secondary: rgb(187, 0, 254);
+  --primary: rgb(245, 216, 253);
+  --secondary: rgb(187, 1, 255);
   --border_thickness: 3px;
+  --primary_hc: rgb(253, 246, 255);
+  --secondary_hc: rgb(143, 0, 195);
 }
 
 body {

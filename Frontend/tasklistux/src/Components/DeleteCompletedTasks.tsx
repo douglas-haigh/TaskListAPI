@@ -17,6 +17,6 @@ export const DeleteCompleteTasks:React.FC<Props> = ({onDelete}) => {
     }
 
     return(
-        <button id="DeleteCompletedTasks" onClick={handleDelete}> Clear </button>
+        <button id="DeleteCompletedTasks" onClick={handleDelete} aria-label="Clear completed Tasks"> Clear </button>
     )
 }

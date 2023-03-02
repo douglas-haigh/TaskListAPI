@@ -8,7 +8,7 @@ export const SortByPriorityButton: React.FC<Props> = ({onSort}) => {
 
     return(
         <div id="SortButton">
-            <button onClick={onSort}> Sort </button>
+            <button aria-label="sort tasks by priortiy" onClick={onSort}> Sort </button>
         </div>
     )
 }

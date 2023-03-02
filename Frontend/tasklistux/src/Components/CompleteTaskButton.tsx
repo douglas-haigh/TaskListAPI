@@ -27,7 +27,7 @@ export const CompleteTaskButton: React.FC<Props> = ({task, onComplete}) => {
 
     return( 
         <div className="CompleteTaskButton">
-            <button onClick={handleComplete}> Done </button>
+            <button onClick={handleComplete} aria-label="Complete Task"> Done </button>
         </div>
     ) 
 }

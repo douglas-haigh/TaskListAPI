@@ -6,8 +6,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import org.hibernate.annotations.GenericGenerator;
-
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 
 @Entity
 //@Table(name="TASKS")
@@ -30,6 +31,11 @@ public class Task {
                 "[id=%d, content='%s', priority='%s', status='%s']",
                 id, content, priority, status);
     }
+    public void completeTask() {
+        Instant timestamp = Instant.now();
+        LocalDate completionDate = timestamp.atZone(ZoneId.systemDefault()).toLocalDate();
+        this.setCompletionDate(completionDate);
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -50,4 +56,6 @@ public class Task {
     public void setStatus(Status status) {this.status = status;}
     public LocalDate getCompletionDate() {return completionDate;}
     public void setCompletionDate(LocalDate completionDate) {this.completionDate = completionDate;}
+
+
 }
